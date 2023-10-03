@@ -2,31 +2,36 @@
  * Immutable Object.
  */
 
-export default class TicketTypeRequest {
-  #type;
+import InvalidTicketTypeException from './InvalidTicketTypeException'
 
-  #noOfTickets;
+export default class TicketTypeRequest {
+  #type
+
+  #noOfTickets
+  static #VALID_TYPES = ['ADULT', 'CHILD', 'INFANT']
 
   constructor(type, noOfTickets) {
-    if (!this.#Type.includes(type)) {
-      throw new TypeError(`type must be ${this.#Type.slice(0, -1).join(', ')}, or ${this.#Type.slice(-1)}`);
+    if (!TicketTypeRequest.#VALID_TYPES.includes(type)) {
+      throw new InvalidTicketTypeException(
+        `Invalid ticket type. Allowed types are: ${TicketTypeRequest.#VALID_TYPES.join(
+          ', '
+        )}`
+      )
     }
 
-    if (!Number.isInteger(noOfTickets)) {
-      throw new TypeError('noOfTickets must be an integer');
+    if (!Number.isInteger(noOfTickets) || noOfTickets <= 0) {
+      throw new TypeError('noOfTickets must be a positive integer')
     }
 
-    this.#type = type;
-    this.#noOfTickets = noOfTickets;
+    this.#type = type
+    this.#noOfTickets = noOfTickets
   }
 
   getNoOfTickets() {
-    return this.#noOfTickets;
+    return this.#noOfTickets
   }
 
   getTicketType() {
-    return this.#type;
+    return this.#type
   }
-
-  #Type = ['ADULT', 'CHILD', 'INFANT'];
 }
