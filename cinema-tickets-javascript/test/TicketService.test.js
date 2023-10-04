@@ -31,7 +31,7 @@ describe('TicketService', () => {
     )
   })
 
-  it('should throw when purchsing child or infant tickets without an adult', () => {
+  it('should throw when purchasing child or infant tickets without an adult', () => {
     const childTicketReq = new TicketTypeRequest('CHILD', 5)
     const infantTicketReq = new TicketTypeRequest('INFANT', 5)
     expect(() => ticketService.purchaseTickets(1, childTicketReq)).toThrow(
